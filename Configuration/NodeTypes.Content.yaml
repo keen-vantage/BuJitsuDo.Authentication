@@ -1,0 +1,6 @@
+'BuJitsuDo.Authentication:UserList':
+  superTypes:
+    - 'TYPO3.Neos:Content'
+  ui:
+    label: 'Leden lijst'
+    icon: 'icon-group'

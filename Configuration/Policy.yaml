@@ -1,0 +1,49 @@
+privilegeTargets:
+
+  'TYPO3\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
+
+    'BuJitsuDo.Authentication:Registration':
+      matcher: 'method(BuJitsuDo\Authentication\Controller\RegistrationController->(register)Action())'
+
+    'BuJitsuDo.Authentication:Login':
+      matcher: 'method(BuJitsuDo\Authentication\Controller\(Login|Profile)Controller->(authenticate|logout|resetPassword)Action())'
+
+    'BuJitsuDo.Authentication:Update':
+      matcher: 'method(BuJitsuDo\Authentication\Controller\ProfileController->(update|updateImage|updatePassword)Action())'
+
+roles:
+  'BuJitsuDo.Authentication:User':
+    privileges:
+      -
+        privilegeTarget: 'BuJitsuDo.Authentication:Login'
+        permission: GRANT
+      -
+        privilegeTarget: 'BuJitsuDo.Authentication:Update'
+        permission: GRANT
+
+  'TYPO3.Flow:Anonymous':
+    privileges:
+      -
+        privilegeTarget: 'BuJitsuDo.Authentication:Login'
+        permission: GRANT
+      -
+        privilegeTarget: 'BuJitsuDo.Authentication:Update'
+        permission: GRANT
+
+  'TYPO3.Flow:Everybody':
+    privileges:
+      -
+        privilegeTarget: 'BuJitsuDo.Authentication:Registration'
+        permission: GRANT
+      -
+        privilegeTarget: 'BuJitsuDo.Authentication:Login'
+        permission: GRANT
+      -
+        privilegeTarget: 'BuJitsuDo.Authentication:Update'
+        permission: GRANT
+
+  'TYPO3.Flow:AuthenticatedUser':
+    privileges:
+      -
+        privilegeTarget: 'BuJitsuDo.Authentication:Update'
+        permission: GRANT

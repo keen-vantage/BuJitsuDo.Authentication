@@ -1,0 +1,40 @@
+prototype(BuJitsuDo.Authentication:UserStorage) < prototype(Nieuwenhuizen.BuJitsuDo:PageContent) {
+	templatePath = 'resource://BuJitsuDo.Authentication/Private/Templates/DocumentTypes/UserStorage.html'
+	loginPage = ${q(site).find('[instanceof BuJitsuDo.Authentication:Login]').get(0)}
+}
+
+prototype(BuJitsuDo.Authentication:UserList) < prototype(TYPO3.Neos:Content) {
+	users = ${PersonSearch.query(site).sortAsc('firstName').limit(999).fetch()}
+
+	profileImagePlaceholderMale = TYPO3.TypoScript:Tag {
+		tagName = 'img'
+		omitClosingTag = TRUE
+		attributes {
+			src = TYPO3.TypoScript:ResourceUri {
+				path = 'resource://Nieuwenhuizen.BuJitsuDo/Public/Images/male-member.png'
+			}
+		}
+	}
+	profileImagePlaceholderFemale = TYPO3.TypoScript:Tag {
+		tagName = 'img'
+		omitClosingTag = TRUE
+		attributes {
+			src = TYPO3.TypoScript:ResourceUri {
+				path = 'resource://Nieuwenhuizen.BuJitsuDo/Public/Images/female-member.png'
+			}
+		}
+	}
+
+	@cache {
+		mode = 'cached'
+		entryIdentifier {
+			documentNode = ${documentNode}
+			node = ${node}
+		}
+		entryTags {
+			1 = ${'Node_' + documentNode.identifier}
+			2 = ${'DescendantOf_' + documentNode.identifier}
+			3 = 'NodeType_BuJitsuDo.Authentication:Person'
+		}
+	}
+}

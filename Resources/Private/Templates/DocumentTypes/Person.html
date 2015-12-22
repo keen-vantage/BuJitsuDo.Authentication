@@ -1,0 +1,136 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
+{namespace m=TYPO3\Media\ViewHelpers}
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
+{namespace budo=BuJitsuDo\Authentication\ViewHelpers}
+<div class="row container" xmlns:f="http://www.w3.org/1999/XSL/Transform">
+	<div class="default-header" style="max-width: 100%; background: url('{m:uri.image(image: headerImage)}') no-repeat center center; background-size: cover !important;">
+	</div>
+</div>
+
+<f:security.ifAuthenticated>
+	<f:then>
+		<div class="display-content" data-content="profile-information">
+			<div class="row">
+				<div class="columns small-12">
+					{breadcrumbMenu -> f:format.raw()}
+					<br />
+				</div>
+			</div>
+			<div class="row name-row collapse">
+				<div class="columns {budo:isEditableByMe(contentUserIdentifier: node.identifier, then: 'small-12 large-9', else: 'small-12')}">
+					<f:if condition="{node.properties.image}">
+						<div class="small-12 columns medium-2 large-2">
+							<div class="large profile-image">
+								<img src="{m:uri.image(image: node.properties.image)}" title="title" alt="alt"/>
+								<i class="fa"></i>
+							</div>
+						</div>
+					</f:if>
+					<div class="columns small-12 {f:if(condition: node.properties.image, then: 'small-12 medium-10 large-10', else: 'small-12')}">
+						<h1>{displayName}</h1>
+					</div>
+				</div>
+				<budo:isEditableByMe contentUserIdentifier="{node.identifier}">
+					<div class="small-12 large-3 columns" data-content="edit-buttons">
+						<ul>
+							<li>
+								<a data-action="edit-profile">
+									Bewerk mijn gegevens
+								</a>
+							</li>
+							<li>
+								<a data-action="edit-profile-password">
+									Pas mijn wachtwoord aan
+								</a>
+							</li>
+							<li>
+								<a data-action="edit-profile-image">
+									Upload profiel foto
+								</a>
+							</li>
+						</ul>
+					</div>
+				</budo:isEditableByMe>
+			</div>
+			<budo:isEditableByMe contentUserIdentifier="{node.identifier}">
+				<ts:render path="imageUpdate" />
+				<ts:render path="passwordUpdate" />
+			</budo:isEditableByMe>
+			<div class="row">
+				<hr />
+			</div>
+			<div class="row">
+				<div class="columns small-12 medium-6">
+					<f:if condition="{node.properties.buJitsuDo}">
+						<div class="row">
+							<div class="columns small-3 large-2">
+								<div class="split-circle">
+									<div class="bujitsudo top {node.properties.buJitsuDoDegree}"></div>
+									<div class="bujitsudo bottom {node.properties.buJitsuDoDegree}"></div>
+								</div>
+							</div>
+							<div class="columns small-9 large-10">
+								<h2>Bu Jitsu Do</h2>
+								<p>{bjdDegreeArray.0}</p>
+							</div>
+						</div>
+					</f:if>
+					<f:if condition="{node.properties.jiuJitsu}">
+						<div class="row">
+							<div class="columns small-3 large-2">
+								<div class="circle jiujitsu {node.properties.jiuJitsuDegree}"></div>
+							</div>
+							<div class="columns small-9 large-10">
+								<h2>Jiu Jitsu</h2>
+								<p>{jjDegreeArray.0}</p>
+							</div>
+						</div>
+					</f:if>
+				</div>
+				<div class="columns small-12 medium-6">
+					<f:if condition="{events.events}">
+						<h2>Evenementen:</h2>
+						<ul class="profile-event-list">
+							<f:for each="{events.events}" as="event">
+								<li class="{f:if(condition: '{f:format.date(date: \'now\', format: \'U\')} > {event.properties.end.timeStamp}', then: 'done')}">
+									{event.label -> neos:link.node(node: event)}
+								</li>
+							</f:for>
+						</ul>
+					</f:if>
+					<f:if condition="{events.exams}">
+						<h2>Examens:</h2>
+						<ul class="profile-event-list exams">
+							<f:for each="{events.exams}" as="exam">
+								<li class="{f:if(condition: '{f:format.date(date: \'now\', format: \'U\')} > {exam.properties.end.timeStamp}', then: 'done')}">
+									<neos:link.node node="{exam}">
+										{exam.label} | {exam.properties.type}
+									</neos:link.node>
+								</li>
+							</f:for>
+						</ul>
+					</f:if>
+				</div>
+			</div>
+		</div>
+
+		<ts:render path="profileUpdate" />
+	</f:then>
+	<f:else>
+		<div class="display-content" data-content="profile-information">
+			<div class="row">
+				<div class="columns small-12">
+					{breadcrumbMenu -> f:format.raw()}
+				</div>
+			</div>
+			<div class="row name-row">
+				<div class="columns small-12">
+					<p>
+						Log in om andere leden te zien. <br />
+						<neos:link.node node="{loginPage}">Klik hier</neos:link.node> om in te loggen
+					</p>
+				</div>
+			</div>
+		</div>
+	</f:else>
+</f:security.ifAuthenticated>

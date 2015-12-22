@@ -1,0 +1,79 @@
+-
+  name: 'Registration'
+  uriPattern: 'register'
+  defaults:
+    '@package': 'BuJitsuDo.Authentication'
+    '@controller': 'Registration'
+    '@action': 'register'
+    '@format': 'html'
+  httpMethods:
+    - 'POST'
+  appendExceedingArguments: TRUE
+
+-
+  name: 'Update'
+  uriPattern: 'update'
+  defaults:
+    '@package': 'BuJitsuDo.Authentication'
+    '@controller': 'Profile'
+    '@action': 'update'
+    '@format': 'html'
+  httpMethods:
+    - 'POST'
+    - 'PUT'
+
+-
+  name: 'Update image'
+  uriPattern: 'update-image'
+  defaults:
+    '@package': 'BuJitsuDo.Authentication'
+    '@controller': 'Profile'
+    '@action': 'updateImage'
+    '@format': 'html'
+  httpMethods:
+    - 'POST'
+
+-
+  name: 'Update password'
+  uriPattern: 'update-password'
+  defaults:
+    '@package': 'BuJitsuDo.Authentication'
+    '@controller': 'Profile'
+    '@action': 'updatePassword'
+    '@format': 'html'
+  httpMethods:
+    - 'PUT'
+
+-
+  name: 'Reset password'
+  uriPattern: 'reset-password'
+  defaults:
+    '@package': 'BuJitsuDo.Authentication'
+    '@controller': 'Profile'
+    '@action': 'resetPassword'
+    '@format': 'html'
+  httpMethods:
+    - 'PUT'
+
+-
+  name: 'Authenticate'
+  uriPattern: 'authenticate'
+  defaults:
+    '@package': 'BuJitsuDo.Authentication'
+    '@controller': 'Login'
+    '@action': 'authenticate'
+    '@format': 'html'
+  httpMethods:
+    - 'POST'
+
+-
+  name: 'Logout'
+  uriPattern: 'logout'
+  defaults:
+    '@package': 'BuJitsuDo.Authentication'
+    '@controller': 'Login'
+    '@action': 'logout'
+    '@format': 'html'
+  httpMethods:
+    - 'POST'
+  appendExceedingArguments: TRUE

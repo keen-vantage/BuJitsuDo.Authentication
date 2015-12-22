@@ -1,0 +1,73 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
+{namespace m=TYPO3\Media\ViewHelpers}
+{namespace budo=BuJitsuDo\Authentication\ViewHelpers}
+
+<div xmlns:f="http://www.w3.org/1999/XSL/Transform">
+	<div class="columns small-12" data-role="user-list">
+		<f:for each="{users}" as="user" iteration="i">
+			<f:render section="row" arguments="{_all}" />
+		</f:for>
+	</div>
+</div>
+
+<f:section name="row">
+	<neos:link.node node="{user}">
+		<div class="row">
+			<f:if condition="{user.properties.image}">
+				<f:then>
+					<div class="medium-2 large-1 columns hide-for-small">
+						<div class="medium profile-image">
+							<img src="{m:uri.image(image: user.properties.image)}" title="{user.label}" alt="{user.label}"/>
+							<i class="fa"></i>
+						</div>
+					</div>
+
+					<div class="small-3 columns show-for-small">
+						<div class="small profile-image">
+							<img src="{m:uri.image(image: user.properties.image)}" title="{user.label}" alt="{user.label}"/>
+							<i class="fa"></i>
+						</div>
+					</div>
+				</f:then>
+
+				<f:else>
+					<div class="medium-2 large-1 columns hide-for-small">
+						<div class="medium profile-image">
+							<f:if condition="{user.properties.gender} == 'male'">
+								<f:then>
+									{profileImagePlaceholderMale -> f:format.raw()}
+								</f:then>
+								<f:else>
+									{profileImagePlaceholderFemale -> f:format.raw()}
+								</f:else>
+							</f:if>
+							<i class="fa"></i>
+						</div>
+					</div>
+
+					<div class="small-3 columns show-for-small">
+						<div class="small profile-image">
+							<f:if condition="{user.properties.gender} == 'male'">
+								<f:then>
+									{profileImagePlaceholderMale -> f:format.raw()}
+								</f:then>
+								<f:else>
+									{profileImagePlaceholderFemale -> f:format.raw()}
+								</f:else>
+							</f:if>
+							<i class="fa"></i>
+						</div>
+					</div>
+				</f:else>
+			</f:if>
+			<div class="columns small-9 medium-10 large-11">
+				<h3>{user.displayName}</h3>
+			</div>
+		</div>
+	</neos:link.node>
+	<f:if condition="{i.isLast}">
+		<f:else>
+			<hr />
+		</f:else>
+	</f:if>
+</f:section>

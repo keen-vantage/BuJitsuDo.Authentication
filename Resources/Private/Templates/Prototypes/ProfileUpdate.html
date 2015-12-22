@@ -1,0 +1,138 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
+{namespace m=TYPO3\Media\ViewHelpers}
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
+{namespace budo=BuJitsuDo\Authentication\ViewHelpers}
+<budo:isEditableByMe contentUserIdentifier="{node.identifier}">
+	<div class="row" data-content="profile-edit">
+		<div class="small-12 columns">
+			<i class="fa fa-remove" data-action="close-profile-edit"></i>
+			<f:form action="update" enctype="multipart/form-data" package="BuJitsuDo.Authentication" controller="Profile" object="{person}" objectName="person" additionalAttributes="{data-abide: true, data-action: 'update-profile'}">
+				<div style="display: none;">
+					<f:form.hidden property="referenceNode" value="{node.path}" />
+				</div>
+				<div class="row">
+					<f:render section="validationResults" arguments="{property: 'person.referenceNode'}" />
+					<f:render section="validationResults" arguments="{property: 'dateOfBirth'}" />
+					<f:render section="validationResults" arguments="{property: 'person.emailAddress'}" />
+					<f:render section="validationResults" arguments="{property: 'password'}" />
+					<f:render section="validationResults" arguments="{property: 'recaptcha_challenge_field'}" />
+
+					<div class="columns small-12">
+						<h2>{f:translate(id: 'profile.edit.header', package: 'BuJitsuDo.Authentication')}</h2>
+					</div>
+					<div class="columns small-12 large-6">
+						<div class="name-field">
+							<label>{f:translate(id: 'profile.firstName', package: 'BuJitsuDo.Authentication')} <small>{f:translate(id: 'validation.mandatory', package: 'BuJitsuDo.Authentication')}</small>
+								<f:form.textfield property="firstName" value="{node.properties.firstName}" additionalAttributes="{pattern: '[a-zA-Z]+', required: true}" placeholder="Voornaam" />
+							</label>
+							<small class="error">{f:translate(id: 'profile.firstName.required', package: 'BuJitsuDo.Authentication')}</small>
+						</div>
+
+						<div class="lastname-field">
+							<label>{f:translate(id: 'profile.lastName', package: 'BuJitsuDo.Authentication')} <small>{f:translate(id: 'validation.mandatory', package: 'BuJitsuDo.Authentication')}</small>
+								<f:form.textfield property="lastName" value="{node.properties.lastName}" additionalAttributes="{pattern: '[a-zA-Z]+', required: true}" placeholder="Achternaam" />
+							</label>
+							<small class="error">{f:translate(id: 'profile.lastName.required', package: 'BuJitsuDo.Authentication')}</small>
+						</div>
+
+						<div class="address-field">
+							<label>{f:translate(id: 'profile.address', package: 'BuJitsuDo.Authentication')}
+								<f:form.textfield property="address" value="{node.properties.address}" placeholder="Adres" />
+							</label>
+						</div>
+
+						<div class="row">
+							<div class="columns small-12 large-6">
+								<label>{f:translate(id: 'profile.zipCode', package: 'BuJitsuDo.Authentication')}
+									<f:form.textfield property="zipCode" value="{node.properties.zipCode}" placeholder="Postcode" />
+								</label>
+							</div>
+							<div class="columns small-12 large-6">
+								<label>{f:translate(id: 'profile.zipCode', package: 'BuJitsuDo.Authentication')}
+									<f:form.textfield property="city" value="{node.properties.city}" placeholder="Woonplaats" />
+								</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="email-field">
+								<div class="columns small-12 large-6">
+									<label>{f:translate(id: 'profile.emailAddress', package: 'BuJitsuDo.Authentication')} <small>{f:translate(id: 'validation.mandatory', package: 'BuJitsuDo.Authentication')}</small>
+										<f:form.textfield property="emailAddress" value="{node.properties.emailAddress}" additionalAttributes="{required: true}" type="email" placeholder="email" />
+									</label>
+									<small class="error">{f:translate(id: 'profile.emailAddress.required', package: 'BuJitsuDo.Authentication')}</small>
+								</div>
+							</div>
+							<div class="columns small-12 large-6">
+								<label>{f:translate(id: 'profile.phone', package: 'BuJitsuDo.Authentication')}
+									<f:form.textfield property="phone" value="{node.properties.phone}" placeholder="Telefoon" />
+								</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="columns small-12">
+								<label>{f:translate(id: 'profile.dateOfBirth', package: 'BuJitsuDo.Authentication')}
+									<f:form.textfield placeholder="Geboortedatum" value="{node.properties.dateOfBirth -> f:format.date(format: 'd/m/Y')}" class="fdatepicker" name="dateOfBirth" />
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="columns small-12 large-6">
+						<div class="row">
+							<div class="large-12 columns">
+								<label>{f:translate(id: 'profile.participation', package: 'BuJitsuDo.Authentication')}</label>
+								<f:if condition="{node.properties.jiuJitsu}">
+									<f:then>
+										<f:form.checkbox value="1" checked="checked" property="jiuJitsu" id="jiuJitsu" />
+									</f:then>
+									<f:else>
+										<f:form.checkbox value="1" property="jiuJitsu" id="jiuJitsu" />
+									</f:else>
+								</f:if>
+								<label for="jiuJitsu">{f:translate(id: 'profile.participation.jiuJitsu', package: 'BuJitsuDo.Authentication')}</label>
+
+								<f:if condition="{node.properties.buJitsuDo}">
+									<f:then>
+										<f:form.checkbox value="1" checked="checked" property="buJitsuDo" id="buJitsuDo" />
+									</f:then>
+									<f:else>
+										<f:form.checkbox value="1" property="buJitsuDo" id="buJitsuDo" />
+									</f:else>
+								</f:if>
+								<label for="buJitsuDo">{f:translate(id: 'profile.participation.buJitsuDo', package: 'BuJitsuDo.Authentication')}</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="small-12 large-6 columns">
+								<label>{f:translate(id: 'profile.degree.jiuJitsu', package: 'BuJitsuDo.Authentication')}
+									<f:form.select property="jiuJitsuDegree" value="{node.properties.jiuJitsuDegree}" options="{jiuJitsuOptions}" />
+								</label>
+							</div>
+							<div class="small-12 large-6 columns">
+								<label>{f:translate(id: 'profile.degree.buJitsuDo', package: 'BuJitsuDo.Authentication')}
+									<f:form.select property="buJitsuDoDegree" value="{node.properties.buJitsuDoDegree}" options="{buJitsuDoOptions}" />
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="columns small-12">
+						<button class="columns small-12" type="submit">Update</button>
+					</div>
+				</div>
+			</f:form>
+		</div>
+	</div>
+</budo:isEditableByMe>
+
+<f:section name="validationResults">
+	<f:validation.results for="{property}">
+		<f:if condition="{validationResults.flattenedErrors}">
+			<f:for each="{validationResults.errors}" as="error">
+				<div data-alert class="alert-box alert">
+					{error.message}
+				</div>
+			</f:for>
+		</f:if>
+	</f:validation.results>
+</f:section>

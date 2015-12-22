@@ -1,0 +1,5 @@
+prototype(BuJitsuDo.Authentication:RegistrationContent) < prototype(Nieuwenhuizen.BuJitsuDo:PageContent) {
+	@class = 'BuJitsuDo\\Authentication\\TypoScriptObjects\\RegistrationImplementation'
+	templatePath = 'resource://BuJitsuDo.Authentication/Private/Templates/NodeTypes/Registration.html'
+	userStorage = ${q(site).find('[instanceof BuJitsuDo.Authentication:UserStorage]').get(0)}
+}

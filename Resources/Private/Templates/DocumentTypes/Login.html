@@ -1,0 +1,59 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
+{namespace m=TYPO3\Media\ViewHelpers}
+{namespace budo=BuJitsuDo\Authentication\ViewHelpers}
+<div class="row container">
+	<div class="default-header" style="max-width: 100%; background: url('{m:uri.image(image: headerImage)}') no-repeat center center; background-size: cover !important;">
+	</div>
+</div>
+<div class="row">
+	<div class="columns small-9 small-centered">
+		<h1>Login</h1>
+		<f:security.ifAuthenticated>
+			<f:then>
+				<p>U bent ingelogd</p>
+			</f:then>
+			<f:else>
+				<f:flashMessages as="flashMessages">
+					<f:for each="{flashMessages}" as="flashMessage">
+						<div data-alert class="alert-box warning">
+							{flashMessage.message}
+						</div>
+						<hr />
+					</f:for>
+				</f:flashMessages>
+				<f:form action="authenticate" package="BuJitsuDo.Authentication" controller="Login" method="post" name="loginform">
+					<input placeholder="Email adres" type="text" id="username"
+						   name="__authentication[TYPO3][Flow][Security][Authentication][Token][UsernamePassword][username]"
+						   value="" tabindex="1" />
+					<input placeholder="Wachtwoord" type="password" id="password"
+						   name="__authentication[TYPO3][Flow][Security][Authentication][Token][UsernamePassword][password]"
+						   value="" tabindex="2" />
+					<button>Login</button>
+				</f:form>
+
+				<div class="row">
+					<div class="columns small-12">
+						<p>
+							Nog geen account? Klik <neos:link.node node="{registrationPage}">hier</neos:link.node>
+							<br />
+							Wachtwoord vergeten? Klik <a data-action="show-password-reset">hier</a>
+						</p>
+					</div>
+				</div>
+				<div class="row" data-content="reset-password">
+					<div class="columns small-12">
+						<i class="fa fa-remove" data-action="close-password-reset"></i>
+					</div>
+					<div class="columns small-12">
+						<h3>Reset je wachtwoord</h3>
+						<f:form action="resetPassword" controller="profile" package="BuJitsuDo.Authentication" additionalAttributes="{data-action: 'password-reset'}">
+							<f:form.hidden name="requirement" value="" />
+							<f:form.textfield name="emailAddress" placeholder="email adres" />
+							<button>Reset</button>
+						</f:form>
+					</div>
+				</div>
+			</f:else>
+		</f:security.ifAuthenticated>
+	</div>
+</div>

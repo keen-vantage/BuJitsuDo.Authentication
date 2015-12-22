@@ -1,0 +1,145 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
+{namespace m=TYPO3\Media\ViewHelpers}
+<div class="row container">
+	<div class="default-header" style="max-width: 100%; background: url('{m:uri.image(image: headerImage)}') no-repeat center center; background-size: cover !important;">
+	</div>
+</div>
+
+<div class="row">
+	<div class="columns small-12">
+		<h1>Registreer</h1>
+		<f:form method="post" enctype="multipart/form-data" action="register" package="BuJitsuDo.Authentication" controller="Registration" object="{person}" objectName="person" additionalAttributes="{data-abide: true}" >
+			<div style="display: none;">
+				<f:form.hidden name="userStorageNode" value="{userStorage.path}" />
+			</div>
+			<div class="row">
+				<f:render section="validationResults" arguments="{property: 'person.emailAddress'}" />
+				<f:render section="validationResults" arguments="{property: 'password'}" />
+				<f:render section="validationResults" arguments="{property: 'recaptcha_challenge_field'}" />
+
+				<div class="columns small-12">
+					<h2>Persoonsgegevens</h2>
+				</div>
+				<div class="columns small-12 large-6">
+					<div class="name-field">
+						<label>Voornaam <small>verplicht</small>
+							<f:form.textfield property="firstName" additionalAttributes="{pattern: '[a-zA-Z]+', required: true}" placeholder="Voornaam" />
+						</label>
+						<small class="error">Voornaam is verplicht.</small>
+					</div>
+
+					<div class="lastname-field">
+						<label>Achternaam <small>verplicht</small>
+							<f:form.textfield property="lastName" additionalAttributes="{pattern: '[a-zA-Z]+', required: true}" placeholder="Achternaam" />
+						</label>
+						<small class="error">Achternaam is verplicht.</small>
+					</div>
+
+					<div class="address-field">
+						<label>Adres
+							<f:form.textfield property="address" placeholder="Adres" />
+						</label>
+					</div>
+
+					<div class="row">
+						<div class="columns small-12 large-6">
+							<label>Postcode
+								<f:form.textfield property="zipCode" placeholder="Postcode" />
+							</label>
+						</div>
+						<div class="columns small-12 large-6">
+							<label>Woonplaats
+								<f:form.textfield property="city" placeholder="Woonplaats" />
+							</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="email-field">
+							<div class="columns small-12 large-6">
+								<label>Email adres <small>verplicht</small>
+									<f:form.textfield property="emailAddress" additionalAttributes="{required: true}" type="email" placeholder="email" />
+								</label>
+								<small class="error">Voer een correct email adres in.</small>
+							</div>
+						</div>
+						<div class="columns small-12 large-6">
+							<label>Telefoon
+								<f:form.textfield property="phone" placeholder="Telefoon" />
+							</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="columns small-12">
+							<label>Geboortedatum
+								<f:form.textfield placeholder="Geboortedatum" class="fdatepicker" name="dateOfBirth" />
+							</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="small-12 large-6 columns">
+							<label>Wachtwoord: <small>verplicht</small>
+								<f:form.password additionalAttributes="{required: true}" placeholder="Wachtwoord" name="password[0]" />
+							</label>
+							<small class="error">Vul een wachtwoord in.</small>
+						</div>
+						<div class="small-12 large-6 columns">
+							<label>Herhaal wachtwoord: <small>verplicht</small>
+								<f:form.password additionalAttributes="{required: true}" placeholder="Herhaal wachtwoord" name="password[1]" />
+							</label>
+							<small class="error">Herhaal het wachtwoord.</small>
+						</div>
+					</div>
+				</div>
+				<div class="columns small-12 large-6">
+					<div class="row">
+						<div class="large-12 columns">
+							<label>Profiel afbeelding:</label>
+							<f:form.upload property="image.resource" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="large-12 columns">
+							<label>Ik doe mee met:</label>
+							<f:form.checkbox value="true" property="jiuJitsu" id="jiuJitsu" /><label for="jiuJitsu">Jiu Jitsu</label>
+							<f:form.checkbox value="true" property="buJitsuDo" id="buJitsuDo" /><label for="buJitsuDo">Bu Jitsu Do</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="small-12 large-6 columns">
+							<label>Jiu Jitsu graad
+								<f:form.select property="jiuJitsuDegree" options="{jiuJitsuOptions}" />
+							</label>
+						</div>
+						<div class="small-12 large-6 columns">
+							<label>Bu Jitsu Do graad
+								<f:form.select property="buJitsuDoDegree" options="{buJitsuDoOptions}" />
+							</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="columns small-12">
+							{captcha -> f:format.raw()}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="columns small-12">
+					<button class="columns small-12" type="submit">Registreer</button>
+				</div>
+			</div>
+		</f:form>
+	</div>
+</div>
+
+<f:section name="validationResults">
+	<f:validation.results for="{property}">
+		<f:if condition="{validationResults.flattenedErrors}">
+			<f:for each="{validationResults.errors}" as="error">
+				<div data-alert class="alert-box alert">
+					{error.message}
+				</div>
+			</f:for>
+		</f:if>
+	</f:validation.results>
+</f:section>

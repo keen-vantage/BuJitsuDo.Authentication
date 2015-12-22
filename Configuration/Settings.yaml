@@ -1,0 +1,33 @@
+TYPO3:
+  Neos:
+    typoScript:
+      autoInclude:
+        BuJitsuDo.Authentication: TRUE
+  Flow:
+    security:
+      authentication:
+        providers:
+          DefaultProvider:
+            provider: PersistedUsernamePasswordProvider
+  TypoScript:
+    defaultContext:
+      Profile: BuJitsuDo\Authentication\Eel\ProfileHelper
+      PersonSearch: BuJitsuDo\Authentication\Eel\PersonSearchHelper
+
+BuJitsuDo:
+  Authentication:
+    captcha:
+      secret: '6LeOZQoTAAAAACQCK6n6h93MTA73DAon1O5zDmXD'
+      publicKey: '6LeOZQoTAAAAADZYDlQGQ9-eaENOnoNVDkZXSc5n'
+    transport:
+      from:
+        name: 'Bu Jitsu Do'
+        email: 'lars.nieuwenhuizen@me.com'
+      type: 'Swift_SmtpTransport'
+      options:
+        host: 'smtp.mail.me.com'
+        port: '587'
+        username: 'lars.nieuwenhuizen@icloud.com'
+        password: 'B795lars02'
+        encryption: 'tls'
+        localDomain: 'bujitsudo.neos'

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file original="" product-name="BuJitsuDo.Authentication" source-language="en" datatype="plaintext">
+		<body>
+			<trans-unit id="profile.edit.header" xml:space="preserve">
+				<source>My information</source>
+			</trans-unit>
+			<trans-unit id="profile.firstName" xml:space="preserve">
+				<source>First name</source>
+			</trans-unit>
+			<trans-unit id="profile.lastName" xml:space="preserve">
+				<source>Last name</source>
+			</trans-unit>
+			<trans-unit id="profile.address" xml:space="preserve">
+				<source>Address</source>
+			</trans-unit>
+			<trans-unit id="profile.zipCode" xml:space="preserve">
+				<source>Zip code</source>
+			</trans-unit>
+			<trans-unit id="profile.city" xml:space="preserve">
+				<source>City</source>
+			</trans-unit>
+			<trans-unit id="profile.emailAddress" xml:space="preserve">
+				<source>Email address</source>
+			</trans-unit>
+			<trans-unit id="profile.phone" xml:space="preserve">
+				<source>Phone</source>
+			</trans-unit>
+			<trans-unit id="profile.dateOfBirth" xml:space="preserve">
+				<source>Date of birth</source>
+			</trans-unit>
+			<trans-unit id="profile.participation" xml:space="preserve">
+				<source>I participate with:</source>
+			</trans-unit>
+			<trans-unit id="profile.participation.jiuJitsu" xml:space="preserve">
+				<source>Jiu Jitsu</source>
+			</trans-unit>
+			<trans-unit id="profile.participation.buJitsuDo" xml:space="preserve">
+				<source>Bu Jitsu Do</source>
+			</trans-unit>
+			<trans-unit id="profile.degree.jiuJitsu" xml:space="preserve">
+				<source>Jiu Jitsu</source>
+			</trans-unit>
+			<trans-unit id="profile.degree.buJitsuDo" xml:space="preserve">
+				<source>Bu Jitsu Do</source>
+			</trans-unit>
+			<trans-unit id="profile.update.success" xml:space="preserve">
+				<source>Your profile has been updated</source>
+			</trans-unit>
+			<trans-unit id="validation.mandatory" xml:space="preserve">
+				<source>Mandatory</source>
+			</trans-unit>
+			<trans-unit id="profile.firstName.required" xml:space="preserve">
+				<source>First name is required</source>
+			</trans-unit>
+			<trans-unit id="profile.lastName.required" xml:space="preserve">
+				<source>Last name is required</source>
+			</trans-unit>
+			<trans-unit id="profile.emailAddress.required" xml:space="preserve">
+				<source>Email address is required</source>
+			</trans-unit>
+			<trans-unit id="profile.update.password.response.success" xml:space="preserve">
+				<source>Password is updated successfully</source>
+			</trans-unit>
+			<trans-unit id="profile.update.password.response.failure" xml:space="preserve">
+				<source>Password did not update, check if they are the same and have at least 6 characters</source>
+			</trans-unit>
+			<trans-unit id="profile.reset.password.response.failure" xml:space="preserve">
+				<source>Could not reset password, the account does not seem to exist. Check your email address.</source>
+			</trans-unit>
+			<trans-unit id="profile.reset.password.response.success" xml:space="preserve">
+				<source>Password is reset, the new password is send to your email.</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

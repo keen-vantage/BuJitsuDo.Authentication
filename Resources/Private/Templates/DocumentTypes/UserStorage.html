@@ -1,0 +1,26 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
+{namespace m=TYPO3\Media\ViewHelpers}
+{namespace budo=BuJitsuDo\Authentication\ViewHelpers}
+<div class="row container">
+	<div class="default-header" style="max-width: 100%; background: url('{m:uri.image(image: headerImage)}') no-repeat center center; background-size: cover !important;">
+	</div>
+</div>
+
+<section class="row">
+	<div class="columns small-12">
+		{breadcrumbMenu -> f:format.raw()}
+	</div>
+	<div class="columns small-12 content">
+		<f:security.ifAuthenticated>
+			<f:then>
+				{main -> f:format.raw()}
+			</f:then>
+			<f:else>
+				<p>
+					Log in om andere leden te zien. <br />
+					<neos:link.node node="{loginPage}">Klik hier</neos:link.node> om in te loggen
+				</p>
+			</f:else>
+		</f:security.ifAuthenticated>
+	</div>
+</section>

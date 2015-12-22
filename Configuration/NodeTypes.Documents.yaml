@@ -1,0 +1,213 @@
+'BuJitsuDo.Authentication:Login':
+  superTypes:
+    - 'Nieuwenhuizen.BuJitsuDo:HeaderImageMixin'
+    - 'TYPO3.Neos:Document'
+  constraints:
+    nodeTypes:
+      'TYPO3.Neos:Document': FALSE
+  ui:
+    label: 'Login'
+    icon: 'icon-key'
+    inspector:
+      groups:
+        user:
+          label: 'Gebruikers'
+
+'BuJitsuDo.Authentication:RegistrationPage':
+  superTypes:
+    - 'Nieuwenhuizen.BuJitsuDo:HeaderImageMixin'
+    - 'TYPO3.Neos:Document'
+  constraints:
+    nodeTypes:
+      'TYPO3.Neos:Document': FALSE
+  ui:
+    label: 'Registratie pagina'
+    icon: 'icon-file'
+    inspector:
+      groups:
+        user:
+          label: 'Gebruikers'
+
+'BuJitsuDo.Authentication:UserStorage':
+  superTypes:
+    - 'TYPO3.Neos:Document'
+  ui:
+    label: 'Gebruikers'
+    icon: 'icon-group'
+  childNodes:
+    main:
+      type: 'TYPO3.Neos:ContentCollection'
+
+'BuJitsuDo.Authentication:Person':
+  class: 'BuJitsuDo\Authentication\Domain\Model\Person'
+  superTypes:
+    - 'TYPO3.Neos:Document'
+  ui:
+    label: 'Persoon'
+    icon: 'icon-user'
+    inspector:
+      groups:
+        user:
+          label: 'Gebruikers'
+  properties:
+    firstName:
+      type: 'string'
+      ui:
+        label: 'Voornaam'
+        inspector:
+          group: user
+    lastName:
+      type: 'string'
+      ui:
+        label: 'Achternaam'
+        inspector:
+          group: user
+    image:
+      type: TYPO3\Media\Domain\Model\ImageInterface
+      ui:
+        reloadIfChanged: true
+        label: 'Afbeelding'
+        inspector:
+          group: user
+          position: 1
+          editorOptions:
+            features:
+              crop: true
+              resize: true
+    gender:
+      type: 'string'
+      defaultValue: 'male'
+      ui:
+        label: 'Geslacht'
+        inspector:
+          group: user
+          editor: 'TYPO3.Neos/Inspector/Editors/SelectBoxEditor'
+          editorOptions:
+            placeholder: 'Geslacht'
+            values:
+              'male':
+                label: 'Man'
+              'femal':
+                label: 'Vrouw'
+    address:
+      type: 'string'
+      ui:
+        label: 'Adres'
+        inspector:
+          group: user
+    zipCode:
+      type: 'string'
+      ui:
+        label: 'Postcode'
+        inspector:
+          group: user
+    city:
+      type: 'string'
+      ui:
+        label: 'Woonplaats'
+        inspector:
+          group: user
+    emailAddress:
+      type: 'string'
+      ui:
+        label: 'Email adres'
+        inspector:
+          group: user
+    phone:
+      type: 'string'
+      ui:
+        label: 'Telefoon'
+        inspector:
+          group: user
+    dateOfBirth:
+      type: DateTime
+      ui:
+        label: 'Geboortedatum'
+        inspector:
+          group: user
+          editorOptions:
+            format: 'd-m-Y'
+      search:
+        elasticSearchMapping:
+          type: date
+          include_in_all: false
+          format: 'date_time_no_millis'
+        indexing: '${(node.properties.dateOfBirth ? Date.format(node.properties.dateOfBirth, "Y-m-d\TH:i:sP") : null)}'
+    jiuJitsu:
+      type: 'boolean'
+      ui:
+        label: 'Jiu Jitsu'
+        inspector:
+          group: user
+    buJitsuDo:
+      type: 'boolean'
+      ui:
+        label: 'Bu Jitsu Do'
+        inspector:
+          group: user
+    jiuJitsuDegree:
+      type: 'string'
+      ui:
+        label: 'Jiu Jitsu graad'
+        inspector:
+          group: user
+          editor:
+          editor: 'TYPO3.Neos/Inspector/Editors/SelectBoxEditor'
+          editorOptions:
+            placeholder: 'Kies een graad'
+            values:
+              'none':
+                label: 'Rokku-kyu - Witte band'
+              'kyu5':
+                label: '5e kyu - go-kyu - (gele band)'
+              'kyu4':
+                label: '4e kyu - yon-kyu - (oranje band)'
+              'kyu3':
+                label: '3e kyu - san-kyu - (groene band)'
+              'kyu2':
+                label: '2e kyu - ni-kyu - (blauwe band)'
+              'kyu1':
+                label: '1e kyu - ichi-kyu - (bruine band)'
+              'dan1':
+                label: '1e dan - sho-dan - (zwarte band)'
+              'dan2':
+                label: '2e dan - ni-dan - (zwarte band)'
+              'dan3':
+                label: '3e dan - san-dan - (zwarte band)'
+              'dan4':
+                label: '4e dan - san-dan - (zwarte band)'
+    buJitsuDoDegree:
+      type: 'string'
+      ui:
+        label: 'Bu Jitsu Do graad'
+        inspector:
+          group: user
+          editor:
+          editor: 'TYPO3.Neos/Inspector/Editors/SelectBoxEditor'
+          editorOptions:
+            placeholder: 'Kies een graad'
+            values:
+              'none':
+                label: 'Rokku-kyu - Witte band'
+              'kyu5':
+                label: '5e kyu - go-kyu - (wit/geel band)'
+              'kyu4':
+                label: '4e kyu - yon-kyu - (geel/oranje band)'
+              'kyu3':
+                label: '3e kyu - san-kyu - (oranje/groen band)'
+              'kyu2':
+                label: '2e kyu - ni-kyu - (groen/blauw band)'
+              'kyu1':
+                label: '1e kyu - ichi-kyu - (blauw/bruin band)'
+              'dan1':
+                label: '1e dan - sho-dan - (rood/zwart band)'
+    events:
+      type: 'references'
+      ui:
+        label: 'Events'
+        inspector:
+          group: user
+          editorOptions:
+            nodeTypes: ['Nieuwenhuizen.BuJitsuDo:Event', 'BJD.Events:Event']
+    _hiddenInIndex:
+      defaultValue: 1

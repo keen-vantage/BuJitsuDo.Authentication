@@ -1,0 +1,13 @@
+<div class="row" data-content="profile-image-edit">
+	<div class="columns small-12">
+		<i class="fa fa-remove" data-action="close-profile-image-edit"></i>
+	</div>
+	<div class="columns small-12">
+		<h3>Nieuwe profiel foto</h3>
+		<f:form action="updateImage" controller="profile" object="{imageDto}" objectName="imageDto" package="BuJitsuDo.Authentication" enctype="multipart/form-data" additionalAttributes="{data-action: 'updateImage'}">
+			<f:form.hidden name="profileNodeIdentifier" value="{node.identifier}" />
+			<f:form.upload property="image.resource" />
+			<button class="small">Update</button>
+		</f:form>
+	</div>
+</div>

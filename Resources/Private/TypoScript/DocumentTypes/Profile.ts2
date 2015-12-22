@@ -1,0 +1,78 @@
+prototype(BuJitsuDo.Authentication:LoginContent) < prototype(Nieuwenhuizen.BuJitsuDo:PageContent) {
+	templatePath = 'resource://BuJitsuDo.Authentication/Private/Templates/DocumentTypes/Login.html'
+	registrationPage = ${q(site).find('[instanceof BuJitsuDo.Authentication:RegistrationPage]').get(0)}
+	@cache {
+		mode = 'uncached'
+		context {
+			1 = 'site'
+		}
+	}
+}
+
+prototype(BuJitsuDo.Authentication:ProfileContent) < prototype(Nieuwenhuizen.BuJitsuDo:PageContent) {
+	@class = 'BuJitsuDo\\Authentication\\TypoScriptObjects\\RegistrationImplementation'
+	@cache {
+		mode = 'uncached'
+		context {
+			1 = 'node'
+			2 = 'documentNode'
+			3 = 'site'
+		}
+	}
+
+	templatePath = 'resource://BuJitsuDo.Authentication/Private/Templates/DocumentTypes/Person.html'
+	displayName = ${Profile.getDisplayName(node)}
+	bujitsudoDegreeLabel = ${Profile.getDegreeLabel('bujitsudo', node.properties.buJitsuDoDegree)}
+	jiuJitsuDegreeLabel = ${Profile.getDegreeLabel('jiujitsu', node.properties.jiuJitsuDegree)}
+	loginPage = ${q(site).find('[instanceof BuJitsuDo.Authentication:Login]').get(0)}
+
+	jjDegreeArray = ${Profile.getExplode(this.jiuJitsuDegreeLabel, '-')}
+	bjdDegreeArray = ${Profile.getExplode(this.bujitsudoDegreeLabel, '-')}
+	userStorage = ${q(site).find('[instanceof BuJitsuDo.Authentication:UserStorage]').get(0)}
+
+	eventsSortedByDate = ${Event.sortByDate(q(node).property('events'))}
+	events = ${Event.sortEventsAndExams(this.eventsSortedByDate)}
+	events.@cache {
+		mode = 'uncached'
+		context {
+			1 = 'node'
+		}
+	}
+
+	profileUpdate = TYPO3.TypoScript:Template {
+		@class = 'BuJitsuDo\\Authentication\\TypoScriptObjects\\RegistrationImplementation'
+		node = ${documentNode}
+		templatePath = 'resource://BuJitsuDo.Authentication/Private/Templates/Prototypes/ProfileUpdate.html'
+		@cache {
+			mode = 'uncached'
+			context {
+				1 = 'node'
+				2 = 'documentNode'
+			}
+		}
+	}
+
+	passwordUpdate = TYPO3.TypoScript:Template {
+		node = ${documentNode}
+		templatePath = 'resource://BuJitsuDo.Authentication/Private/Templates/Prototypes/PasswordUpdate.html'
+		@cache {
+			mode = 'uncached'
+			context {
+				1 = 'node'
+				2 = 'documentNode'
+			}
+		}
+	}
+
+	imageUpdate = TYPO3.TypoScript:Template {
+		node = ${documentNode}
+		templatePath = 'resource://BuJitsuDo.Authentication/Private/Templates/Prototypes/ImageUpdate.html'
+		@cache {
+			mode = 'uncached'
+			context {
+				1 = 'node'
+				2 = 'documentNode'
+			}
+		}
+	}
+}
